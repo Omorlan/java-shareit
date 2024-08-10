@@ -2,7 +2,6 @@ package ru.practicum.shareit.item.repository;
 
 import ru.practicum.shareit.item.model.Item;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface ItemRepository {
@@ -18,6 +17,7 @@ public interface ItemRepository {
     void delete(Long itemId);
 
     boolean isOwner(Long userId, Long itemId);
+
     boolean isItemExist(Long itemId);
 
     List<Item> findItemsByText(String text);

@@ -23,6 +23,7 @@ import java.util.List;
 public class ItemController {
     private final ItemService itemService;
     private static final String USER_HEADER = "X-Sharer-User-Id";
+
     @GetMapping
     public List<ItemDto> getItemsByUser(@RequestHeader(USER_HEADER) Long userId) {
         return itemService.getItemsByUser(userId);
