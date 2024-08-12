@@ -69,7 +69,7 @@ public class ItemServiceImpl implements ItemService {
 
     private void validateUser(Long userId) {
         if (userId == null || !userRepository.isUserExist(userId)) {
-            throw new NotFoundException("User (id = " + userId + ") not found!");
+            throw new NotFoundException("User with id = " + userId + " not found!");
         }
     }
 
