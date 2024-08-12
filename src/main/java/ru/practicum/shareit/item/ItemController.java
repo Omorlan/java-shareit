@@ -48,8 +48,8 @@ public class ItemController {
     }
 
     @GetMapping("/search")
-    public List<ItemDto> searchItemDto(@RequestHeader(USER_HEADER) Long userId,
-                                       @RequestParam(defaultValue = "", required = false) String text) {
+    public List<ItemDto> searchItemDto(
+            @RequestParam(defaultValue = "", required = false) String text) {
         return itemService.findItemsByText(text);
     }
 }

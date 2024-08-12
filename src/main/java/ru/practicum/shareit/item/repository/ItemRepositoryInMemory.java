@@ -4,15 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.item.model.Item;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
 public class ItemRepositoryInMemory implements ItemRepository {
-    private final Map<Long, Item> itemMap;
+    private final Map<Long, Item> itemMap = new HashMap<>();
     private Long id = 0L;
-
 
     @Override
     public Item create(Item item) {

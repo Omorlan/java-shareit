@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ItemDto {
-    Long id;
+    private Long id;
     @NotBlank
     private String name;
     @NotBlank
