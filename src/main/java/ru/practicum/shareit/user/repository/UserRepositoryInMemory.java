@@ -68,8 +68,8 @@ public class UserRepositoryInMemory implements UserRepository {
         return userMap.containsKey(userId);
     }
 
-    private void validateEmail(String email){
-        if (emails.contains(email)){
+    private void validateEmail(String email) {
+        if (emails.contains(email)) {
             throw new DuplicateEmailException(
                     String.format("User with email: %s is already registered.", email));
         }
