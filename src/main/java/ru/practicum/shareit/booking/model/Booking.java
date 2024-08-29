@@ -1,48 +1,48 @@
-package ru.practicum.shareit.item.model;
+package ru.practicum.shareit.booking.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.shareit.item.comment.model.Comment;
-import ru.practicum.shareit.request.ItemRequest;
+import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
 
-
-@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+@Getter
+@Setter
 @NoArgsConstructor
 @Builder
-@Data
-@Entity
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "items")
-public class Item {
+@Entity
+@Table(name = "bookings")
+public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(nullable = false)
-    String name;
-    @Column(nullable = false)
-    String description;
+    @Column(name = "start_booking", nullable = false)
+    LocalDateTime start;
+    @Column(name = "end_booking", nullable = false)
+    LocalDateTime end;
     @ManyToOne
-    User owner;
-    Boolean available;
+    Item item;
     @ManyToOne
-    ItemRequest request;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
-    Set<Comment> comments = new HashSet<>();
+    User booker;
+    @Enumerated(EnumType.STRING)
+    BookingStatus status;
 }

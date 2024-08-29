@@ -1,25 +1,30 @@
 package ru.practicum.shareit.item.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import ru.practicum.shareit.item.comment.dto.CommentResponseDto;
 import ru.practicum.shareit.request.ItemRequest;
 import ru.practicum.shareit.user.model.User;
+
+import java.util.List;
+
 
 @Data
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ItemDto {
+public class ItemCommentNextLastDto {
     Long id;
-    @NotBlank(message = "Name must not be blank")
     String name;
-    @NotBlank(message = "Description must not be blank")
     String description;
     User owner;
-    @NotNull(message = "Available must not be null")
     Boolean available;
     ItemRequest request;
+    LastNextBooking lastBooking;
+    LastNextBooking nextBooking;
+    List<CommentResponseDto> comments;
+
+    public record LastNextBooking(Long id, Long bookerId) {
+    }
 }

@@ -1,4 +1,4 @@
-package ru.practicum.shareit.item;
+package ru.practicum.shareit.item.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.practicum.shareit.item.comment.dto.CommentAddDto;
+import ru.practicum.shareit.item.comment.dto.CommentResponseDto;
+import ru.practicum.shareit.item.dto.ItemCommentNextLastDto;
 import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.dto.ItemUpdateDto;
 import ru.practicum.shareit.item.service.ItemService;
 
 import java.util.List;
@@ -25,13 +29,14 @@ public class ItemController {
     private static final String USER_HEADER = "X-Sharer-User-Id";
 
     @GetMapping
-    public List<ItemDto> getItemsByUser(@RequestHeader(USER_HEADER) Long userId) {
+    public List<ItemCommentNextLastDto> getItemsByUser(@RequestHeader(USER_HEADER) Long userId) {
         return itemService.getItemsByUser(userId);
     }
 
     @GetMapping("/{itemId}")
-    public ItemDto getItemDto(@PathVariable Long itemId) {
-        return itemService.findItemById(itemId);
+    public ItemCommentNextLastDto getItemDto(@RequestHeader(USER_HEADER) Long userId,
+                                             @PathVariable Long itemId) {
+        return itemService.findItemById(itemId, userId);
     }
 
     @PostMapping
@@ -43,7 +48,7 @@ public class ItemController {
     @PatchMapping("/{itemId}")
     public ItemDto update(@RequestHeader(USER_HEADER) Long userId,
                           @PathVariable Long itemId,
-                          @RequestBody ItemDto itemDto) {
+                          @RequestBody ItemUpdateDto itemDto) {
         return itemService.update(userId, itemId, itemDto);
     }
 
@@ -51,5 +56,12 @@ public class ItemController {
     public List<ItemDto> searchItemDto(
             @RequestParam(defaultValue = "", required = false) String text) {
         return itemService.findItemsByText(text);
+    }
+
+    @PostMapping("/{itemId}/comment")
+    public CommentResponseDto addCommentToItem(@RequestHeader(USER_HEADER) Long userId,
+                                               @PathVariable Long itemId,
+                                               @Valid @RequestBody CommentAddDto commentAddDto) {
+        return itemService.addCommentToItem(userId, itemId, commentAddDto);
     }
 }

@@ -1,4 +1,4 @@
-package ru.practicum.shareit.exception;
+package ru.practicum.shareit.common.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,10 +18,10 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleValidation(final ValidationException e) {
         return new ErrorResponse(
-                "Validation Error!",
+                "CONFLICT Error!",
                 e.getMessage()
         );
     }
@@ -31,6 +31,15 @@ public class ErrorHandler {
     public ErrorResponse handleRuntimeException(final RuntimeException e) {
         return new ErrorResponse(
                 "Internal Error!",
+                e.getMessage()
+        );
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleNotAvailableException(final NotAvailableException e) {
+        return new ErrorResponse(
+                "Bad Request Error!",
                 e.getMessage()
         );
     }

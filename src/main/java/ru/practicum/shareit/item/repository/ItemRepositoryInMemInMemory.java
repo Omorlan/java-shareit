@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
-public class ItemRepositoryInMemory implements ItemRepository {
+public class ItemRepositoryInMemInMemory implements ItemRepositoryInMem {
     private final Map<Long, Item> itemMap = new HashMap<>();
     private Long id = 0L;
 

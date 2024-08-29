@@ -2,9 +2,9 @@ package ru.practicum.shareit.user.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.practicum.shareit.exception.DuplicateEmailException;
-import ru.practicum.shareit.exception.NotFoundException;
-import ru.practicum.shareit.user.User;
+import ru.practicum.shareit.common.exception.DuplicateEmailException;
+import ru.practicum.shareit.common.exception.NotFoundException;
+import ru.practicum.shareit.user.model.User;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepositoryInMemory implements UserRepository {
+public class UserRepositoryInMemInMemory implements UserRepositoryInMem {
     private final Map<Long, User> userMap = new HashMap<>();
     private final Set<String> emails = new HashSet<>();
     private Long id = 0L;
