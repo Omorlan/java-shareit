@@ -46,7 +46,7 @@ public class ItemRepositoryInMemInMemory implements ItemRepositoryInMem {
     @Override
     public List<Item> getItemsByUser(Long userId) {
         return itemMap.values().stream()
-                .filter(item -> item.getOwner().equals(userId))
+                .filter(item -> item.getOwner().getId().equals(userId))
                 .toList();
     }
 
@@ -62,7 +62,8 @@ public class ItemRepositoryInMemInMemory implements ItemRepositoryInMem {
 
     @Override
     public boolean isOwner(Long userId, Long itemId) {
-        return itemMap.get(itemId).getOwner().equals(userId);
+        Item item = itemMap.get(itemId);
+        return item != null && item.getOwner().getId().equals(userId);
     }
 
     @Override
