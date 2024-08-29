@@ -6,10 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.common.Patcher;
 import ru.practicum.shareit.common.exception.NotFoundException;
 import ru.practicum.shareit.common.exception.ValidationException;
-import ru.practicum.shareit.user.model.User;
-import ru.practicum.shareit.user.mapper.UserMapper;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.dto.UserUpdateDto;
+import ru.practicum.shareit.user.mapper.UserMapper;
+import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.repository.UserRepository;
 
 import java.util.List;
@@ -57,6 +57,7 @@ public class UserServiceImpl implements UserService {
                 "User with id " + id + " not found"));
         userRepository.deleteById(id);
     }
+
     @Override
     public List<UserDto> getAll() {
         return userRepository.findAll().stream()
