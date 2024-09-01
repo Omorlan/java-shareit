@@ -16,6 +16,7 @@ import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.dto.BookingResponseDto;
 import ru.practicum.shareit.booking.dto.BookingShortResponseDto;
 import ru.practicum.shareit.booking.service.BookingService;
+import ru.practicum.shareit.common.Headers;
 
 import java.util.List;
 
@@ -25,8 +26,8 @@ import java.util.List;
 @AllArgsConstructor
 public class BookingController {
     private final BookingService bookingService;
-    private static final String USER_HEADER = "X-Sharer-User-Id";
-    private static final String DEFAULT_STATE = "ALL";
+    private static final String USER_HEADER = Headers.USER_HEADER;
+    private static final String DEFAULT_STATE = Headers.DEFAULT_STATE;
 
     @PostMapping
     public BookingResponseDto addBooking(@RequestHeader(USER_HEADER) Long userId,

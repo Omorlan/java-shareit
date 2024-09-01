@@ -4,14 +4,17 @@ package ru.practicum.shareit.booking.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.shareit.booking.model.Booking;
-import ru.practicum.shareit.booking.model.BookingState;
-import ru.practicum.shareit.booking.model.BookingStatus;
 import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.dto.BookingResponseDto;
 import ru.practicum.shareit.booking.dto.BookingShortResponseDto;
 import ru.practicum.shareit.booking.mapper.BookingMapper;
+import ru.practicum.shareit.booking.model.Booking;
+import ru.practicum.shareit.booking.model.BookingState;
+import ru.practicum.shareit.booking.model.BookingStatus;
 import ru.practicum.shareit.booking.repository.BookingRepository;
+import ru.practicum.shareit.booking.service.state.BookingRequest;
+import ru.practicum.shareit.booking.service.state.booker.BookerBookingHandlerChain;
+import ru.practicum.shareit.booking.service.state.owner.OwnerBookingHandlerChain;
 import ru.practicum.shareit.common.exception.NotAvailableException;
 import ru.practicum.shareit.common.exception.NotFoundException;
 import ru.practicum.shareit.item.model.Item;
@@ -19,7 +22,6 @@ import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.repository.UserRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -29,6 +31,9 @@ public class BookingServiceImpl implements BookingService {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
     private final BookingRepository bookingRepository;
+
+    private final BookerBookingHandlerChain bookerHandlerChain;
+    private final OwnerBookingHandlerChain ownerHandlerChain;
 
     @Override
     @Transactional
@@ -132,33 +137,13 @@ public class BookingServiceImpl implements BookingService {
         }
     }
 
-    private List<Booking> findBookingsByState(Long userId, BookingState state) {
-        return switch (state) {
-            case ALL -> bookingRepository.findAllByBookerIdOrderByStartDesc(userId);
-            case CURRENT ->
-                    bookingRepository.findAllByBookerIdAndStartBeforeAndEndAfterOrderByStartDesc(userId, LocalDateTime.now(), LocalDateTime.now());
-            case PAST -> bookingRepository.findAllByBookerIdAndEndBeforeOrderByStartDesc(userId, LocalDateTime.now());
-            case FUTURE ->
-                    bookingRepository.findAllByBookerIdAndStartAfterOrderByStartDesc(userId, LocalDateTime.now());
-            case WAITING -> bookingRepository.findAllByBookerIdAndStatusOrderByStartDesc(userId, BookingStatus.WAITING);
-            case REJECTED ->
-                    bookingRepository.findAllByBookerIdAndStatusOrderByStartDesc(userId, BookingStatus.REJECTED);
-        };
+    public List<Booking> findBookingsByState(Long userId, BookingState state) {
+        BookingRequest request = new BookingRequest(userId, state);
+        return bookerHandlerChain.handle(request);
     }
 
     private List<Booking> findBookingsByOwnerState(Long userId, BookingState state) {
-        return switch (state) {
-            case ALL -> bookingRepository.findAllByItemOwnerIdOrderByStartDesc(userId);
-            case CURRENT ->
-                    bookingRepository.findAllByItemOwnerIdAndStartBeforeAndEndAfterOrderByStartDesc(userId, LocalDateTime.now(), LocalDateTime.now());
-            case PAST ->
-                    bookingRepository.findAllByItemOwnerIdAndEndBeforeOrderByStartDesc(userId, LocalDateTime.now());
-            case FUTURE ->
-                    bookingRepository.findAllByItemOwnerIdAndStartAfterOrderByStartDesc(userId, LocalDateTime.now());
-            case WAITING ->
-                    bookingRepository.findAllByItemOwnerIdAndStatusOrderByStartDesc(userId, BookingStatus.WAITING);
-            case REJECTED ->
-                    bookingRepository.findAllByItemOwnerIdAndStatusOrderByStartDesc(userId, BookingStatus.REJECTED);
-        };
+        BookingRequest request = new BookingRequest(userId, state);
+        return ownerHandlerChain.handle(request);
     }
 }

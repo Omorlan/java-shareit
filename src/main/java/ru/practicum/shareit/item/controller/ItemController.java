@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.practicum.shareit.common.Headers;
 import ru.practicum.shareit.item.comment.dto.CommentAddDto;
 import ru.practicum.shareit.item.comment.dto.CommentResponseDto;
 import ru.practicum.shareit.item.dto.ItemCommentNextLastDto;
@@ -26,7 +27,7 @@ import java.util.List;
 @RequestMapping("/items")
 public class ItemController {
     private final ItemService itemService;
-    private static final String USER_HEADER = "X-Sharer-User-Id";
+    private static final String USER_HEADER = Headers.USER_HEADER;
 
     @GetMapping
     public List<ItemCommentNextLastDto> getItemsByUser(@RequestHeader(USER_HEADER) Long userId) {
