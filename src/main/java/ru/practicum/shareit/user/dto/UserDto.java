@@ -2,16 +2,21 @@ package ru.practicum.shareit.user.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Data
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserDto {
-    private Long id;
+    Long id;
     @NotBlank
-    private String name;
+    String name;
     @NotBlank
     @Email
-    private String email;
+    String email;
 }
