@@ -70,6 +70,7 @@ public class ItemRequestServiceImpl implements ItemRequestService {
                 .orElseThrow(() -> new NotFoundException("Request " + requestId + " not found"));
         return ItemRequestMapper.toItemRequestResponseDto(request);
     }
+
     private User validateUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователь " + userId + " не найден"));

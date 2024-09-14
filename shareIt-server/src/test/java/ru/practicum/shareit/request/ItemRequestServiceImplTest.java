@@ -57,7 +57,7 @@ class ItemRequestServiceImplTest {
     }
 
     @Test
-    void addItemRequest_Successful() {
+    void addItemRequestSuccessful() {
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
         when(itemRequestRepository.save(any(ItemRequest.class))).thenReturn(request);
         ItemRequestAddDto addDto = new ItemRequestAddDto();
@@ -67,7 +67,7 @@ class ItemRequestServiceImplTest {
     }
 
     @Test
-    void getItemRequests_UserHasRequests() {
+    void getItemRequestsUserHasRequests() {
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
         when(itemRequestRepository.findByRequestorIdOrderByCreatedDesc(anyLong())).thenReturn(List.of(request));
         List<ItemRequestResponseDto> dtos = itemRequestService.getItemRequests(user.getId());
@@ -76,7 +76,7 @@ class ItemRequestServiceImplTest {
     }
 
     @Test
-    void getAllItemRequests_Successful() {
+    void getAllItemRequestsSuccessful() {
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
         PageRequest pageRequest = PageRequest.of(0, 20, Sort.by(Sort.Direction.DESC, "created"));
         Page<ItemRequest> page = new PageImpl<>(List.of(request), pageRequest, 1);
@@ -87,7 +87,7 @@ class ItemRequestServiceImplTest {
     }
 
     @Test
-    void getItemRequest_RequestExists() {
+    void getItemRequestRequestExists() {
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
         when(itemRequestRepository.findById(request.getId())).thenReturn(Optional.of(request));
         ItemRequestResponseDto dto = itemRequestService.getItemRequest(user.getId(), request.getId());

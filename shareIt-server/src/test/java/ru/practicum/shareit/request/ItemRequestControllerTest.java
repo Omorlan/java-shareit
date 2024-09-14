@@ -52,7 +52,7 @@ class ItemRequestControllerTest {
 
     @Test
     @SneakyThrows
-    void addItemRequest_ShouldReturnCreatedRequest() {
+    void addItemRequestShouldReturnCreatedRequest() {
         ItemRequestAddDto addDto = new ItemRequestAddDto();
         addDto.setDescription("Description");
         when(itemRequestService.addItemRequest(user.getId(), addDto)).thenReturn(requestDto);
@@ -66,7 +66,7 @@ class ItemRequestControllerTest {
 
     @Test
     @SneakyThrows
-    void getItemRequests_ShouldReturnListOfRequests() {
+    void getItemRequestsShouldReturnListOfRequests() {
         ItemRequestResponseDto responseDto = ItemRequestResponseDto.builder()
                 .description("Description")
                 .created(LocalDateTime.now())
@@ -80,7 +80,7 @@ class ItemRequestControllerTest {
 
     @Test
     @SneakyThrows
-    void getAllItemRequests_ShouldReturnAllRequests() {
+    void getAllItemRequestsShouldReturnAllRequests() {
         ItemRequestDto dto = ItemRequestDto.builder()
                 .id(2L)
                 .description("Description")
@@ -96,7 +96,7 @@ class ItemRequestControllerTest {
 
     @Test
     @SneakyThrows
-    void getItemRequest_ShouldReturnSpecificRequest() {
+    void getItemRequestShouldReturnSpecificRequest() {
         ItemRequestResponseDto responseDto = ItemRequestResponseDto.builder()
                 .id(3L)
                 .description("Description")

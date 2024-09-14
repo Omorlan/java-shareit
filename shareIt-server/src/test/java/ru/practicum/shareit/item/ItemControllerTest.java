@@ -74,7 +74,7 @@ class ItemControllerTest {
 
     @Test
     @SneakyThrows
-    void createItem_whatShouldBeReturned() {
+    void createItemwhatShouldBeReturned() {
         ItemAddDto itemAddDto = ItemAddDto.builder()
                 .id(1L)
                 .name("Item1")
@@ -98,7 +98,7 @@ class ItemControllerTest {
 
     @Test
     @SneakyThrows
-    void updateItem_whatShouldBeReturned() {
+    void updateItemwhatShouldBeReturned() {
         ItemUpdateDto itemUpdateDto = ItemUpdateDto.builder()
                 .name("Item1")
                 .description("Item1")
@@ -119,7 +119,7 @@ class ItemControllerTest {
 
     @Test
     @SneakyThrows
-    void getAllItems_whatShouldBeReturned() {
+    void getAllItemswhatShouldBeReturned() {
         when(itemService.getItemsByUser(1L)).thenReturn(List.of(itemCommentNextLastDto));
 
         String result = mockMvc.perform(get("/items")
@@ -134,7 +134,7 @@ class ItemControllerTest {
 
     @Test
     @SneakyThrows
-    void getItemById_whatShouldBeReturned() {
+    void getItemByIdwhatShouldBeReturned() {
         when(itemService.findItemById(1L, 1L)).thenReturn(itemCommentNextLastDto);
 
         String result = mockMvc.perform(get("/items/{itemId}", 1L)
@@ -149,7 +149,7 @@ class ItemControllerTest {
 
     @Test
     @SneakyThrows
-    void searchItemsByText_whatShouldBeReturned() {
+    void searchItemsByTextwhatShouldBeReturned() {
         when(itemService.findItemsByText(anyString())).thenReturn(List.of(itemDto));
 
         String result = mockMvc.perform(get("/items/search")
@@ -164,7 +164,7 @@ class ItemControllerTest {
 
     @Test
     @SneakyThrows
-    void addCommentToItem_whatShouldBeReturned() {
+    void addCommentToItemwhatShouldBeReturned() {
         CommentAddDto commentAddDto = new CommentAddDto();
         commentAddDto.setText("comment");
         CommentResponseDto responseDto = CommentResponseDto.builder()
@@ -188,7 +188,7 @@ class ItemControllerTest {
 
     @Test
     @SneakyThrows
-    void createItem_whenErrorOccurs_whatShouldBeReturned() {
+    void createItemwhenErrorOccurs_whatShouldBeReturned() {
         ItemAddDto itemAddDto = ItemAddDto.builder()
                 .id(1L)
                 .name("Item1")

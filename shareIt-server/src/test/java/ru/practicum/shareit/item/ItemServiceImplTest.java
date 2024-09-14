@@ -13,8 +13,6 @@ import ru.practicum.shareit.booking.repository.BookingRepository;
 import ru.practicum.shareit.common.exception.NotAvailableException;
 import ru.practicum.shareit.common.exception.NotFoundException;
 import ru.practicum.shareit.item.comment.dto.CommentAddDto;
-import ru.practicum.shareit.item.comment.dto.CommentResponseDto;
-import ru.practicum.shareit.item.comment.model.Comment;
 import ru.practicum.shareit.item.comment.repostitory.CommentRepository;
 import ru.practicum.shareit.item.dto.ItemAddDto;
 import ru.practicum.shareit.item.dto.ItemCommentNextLastDto;
@@ -52,8 +50,6 @@ class ItemServiceImplTest {
     @Mock
     BookingRepository bookingRepository;
 
-    @Mock
-    CommentRepository commentRepository;
 
     @Mock
     ItemRequestRepository requestRepository;
@@ -89,7 +85,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void create_ShouldReturnCreatedItem() {
+    void createShouldReturnCreatedItem() {
         when(itemRepository.save(any())).thenReturn(item1);
         when(userRepository.findById(owner.getId())).thenReturn(Optional.of(owner));
         when(requestRepository.findById(anyLong())).thenReturn(Optional.empty());
@@ -106,7 +102,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void update_ShouldReturnUpdatedItem() {
+    void updateShouldReturnUpdatedItem() {
         when(itemRepository.save(any())).thenReturn(item1);
         when(userRepository.findById(owner.getId())).thenReturn(Optional.of(owner));
         when(itemRepository.findById(item1.getId())).thenReturn(Optional.of(item1));
@@ -120,7 +116,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void findItemById_ShouldReturnItemDetails() {
+    void findItemByIdShouldReturnItemDetails() {
         when(userRepository.findById(owner.getId())).thenReturn(Optional.of(owner));
         when(itemRepository.findById(item1.getId())).thenReturn(Optional.of(item1));
         when(bookingRepository.findAllByItemIdAndItemOwnerIdAndStatusNotIn(
@@ -133,7 +129,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void getItemsByUser_ShouldReturnUserItems() {
+    void getItemsByUserShouldReturnUserItems() {
         when(userRepository.findById(owner.getId())).thenReturn(Optional.of(owner));
         when(itemRepository.getItemsByUser(owner.getId())).thenReturn(List.of(item1, item2));
 
@@ -154,7 +150,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void findItemsByText_ShouldReturnSearchedItems() {
+    void findItemsByTextShouldReturnSearchedItems() {
         when(itemRepository.searchText("text")).thenReturn(List.of(item1, item2));
         List<ItemDto> items = itemService.findItemsByText("text");
         assertEquals(2, items.size());
@@ -163,7 +159,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void addCommentToItem_ShouldThrowNotAvailableException() {
+    void addCommentToItemShouldThrowNotAvailableException() {
         User user = User.builder()
                 .id(2L)
                 .name("Oleg Gazmanov")

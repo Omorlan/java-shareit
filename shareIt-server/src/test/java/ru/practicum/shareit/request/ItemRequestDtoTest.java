@@ -20,7 +20,7 @@ class ItemRequestDtoTest {
 
     @Test
     @SneakyThrows
-    void serialize_ItemRequestDto_ShouldReturnExpectedJson() {
+    void serializeItemRequestDto_ShouldReturnExpectedJson() {
         User user = User.builder()
                 .id(1L)
                 .name("Oleg Gazmanov")

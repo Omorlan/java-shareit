@@ -42,7 +42,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    void whenFindByEmail_thenReturnUser() {
+    void whenFindByEmailthenReturnUser() {
         Optional<User> foundUser = userRepository.findByEmail("vpole.skonem@viydu.ru");
         assertEquals(testUser, foundUser.orElse(null));
     }

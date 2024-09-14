@@ -24,7 +24,7 @@ class ItemDtoTest {
 
     @Test
     @SneakyThrows
-    void serializeItemDto_correctlySerialized() {
+    void serializeItemDtocorrectlySerialized() {
         ItemDto itemDto = ItemDto.builder()
                 .id(1L)
                 .name("Item")
@@ -54,7 +54,7 @@ class ItemDtoTest {
 
     @Test
     @SneakyThrows
-    void deserializeItemDto_correctlyDeserialized() {
+    void deserializeItemDtocorrectlyDeserialized() {
         String jsonString = "{\"id\":1,\"name\":\"Item\",\"description\":\"Description\",\"available\":true,\"owner\":{\"id\":1,\"name\":\"Oleg Gazmanov\",\"email\":\"vpole.skonem@viydu.ru\"},\"request\":null}";
 
         ItemDto itemDto = json.parseObject(jsonString);

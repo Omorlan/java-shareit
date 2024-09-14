@@ -50,7 +50,7 @@ class UserControllerTest {
 
     @Test
     @SneakyThrows
-    void createUser_CreatedSuccessfully() {
+    void createUserCreatedSuccessfully() {
         when(userService.create(userDto)).thenReturn(userDto);
         String result = mockMvc.perform(post("/users")
                         .contentType("application/json")
@@ -65,7 +65,7 @@ class UserControllerTest {
 
     @Test
     @SneakyThrows
-    void updateUser_UpdatedSuccessfully() {
+    void updateUserUpdatedSuccessfully() {
         UserUpdateDto userUpdateDto = UserUpdateDto.builder()
                 .name("Oleg Gazmanov Updated")
                 .build();
@@ -84,7 +84,7 @@ class UserControllerTest {
 
     @Test
     @SneakyThrows
-    void getUser_UserFound() {
+    void getUserUserFound() {
         when(userService.getById(1L)).thenReturn(userDto);
         String result = mockMvc.perform(get("/users/{userId}", 1L))
                 .andExpect(status().isOk())
@@ -97,7 +97,7 @@ class UserControllerTest {
 
     @Test
     @SneakyThrows
-    void getAllUsers_UsersFound() {
+    void getAllUsersUsersFound() {
         when(userService.getAll()).thenReturn(List.of(userDto));
         String result = mockMvc.perform(get("/users"))
                 .andExpect(status().isOk())
@@ -110,7 +110,7 @@ class UserControllerTest {
 
     @Test
     @SneakyThrows
-    void deleteUser_DeletedSuccessfully() {
+    void deleteUserDeletedSuccessfully() {
         mockMvc.perform(delete("/users/{id}", 1L))
                 .andExpect(status().isOk());
 

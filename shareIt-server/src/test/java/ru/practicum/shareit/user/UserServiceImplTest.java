@@ -50,7 +50,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void getAllUsers_UsersAreReturned() {
+    void getAllUsersUsersAreReturned() {
         when(userRepository.findAll()).thenReturn(List.of(testUser1, testUser2));
         List<UserDto> allUsers = userService.getAll();
         assertEquals(2, allUsers.size());
@@ -61,7 +61,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void createUser_UserIsCreated() {
+    void createUserUserIsCreated() {
         when(userRepository.findByEmail(testUser1.getEmail())).thenReturn(Optional.empty());
         when(userRepository.save(any(User.class))).thenReturn(testUser1);
         UserDto userDto = UserDto.builder()
@@ -74,7 +74,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void updateUser_UserIsUpdated() {
+    void updateUserUserIsUpdated() {
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(testUser1));
         when(userRepository.save(any(User.class))).thenReturn(testUser1);
 
@@ -88,21 +88,21 @@ class UserServiceImplTest {
     }
 
     @Test
-    void getUserById_UserIsReturned() {
+    void getUserByIdUserIsReturned() {
         when(userRepository.findById(2L)).thenReturn(Optional.of(testUser2));
         UserDto userDto = userService.getById(2L);
         assertEquals(testUser2.getName(), userDto.getName());
     }
 
     @Test
-    void deleteUser_UserIsDeleted() {
+    void deleteUserUserIsDeleted() {
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(testUser1));
         userService.delete(testUser1.getId());
         verify(userRepository).deleteById(testUser1.getId());
     }
 
     @Test
-    void createUser_ShouldThrowValidationException_WhenEmailAlreadyExists() {
+    void createUserShouldThrowValidationException_WhenEmailAlreadyExists() {
         when(userRepository.findByEmail(testUser1.getEmail())).thenReturn(Optional.of(testUser1));
         UserDto userDto = UserDto.builder()
                 .name("Oleg Gazmanov")
@@ -112,7 +112,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void updateUser_ShouldThrowNotFoundException_WhenUserNotFound() {
+    void updateUserShouldThrowNotFoundException_WhenUserNotFound() {
         when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
         UserUpdateDto updateDto = UserUpdateDto.builder()
                 .name("Oleg Gazmanov")
@@ -121,7 +121,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void updateUser_ShouldThrowValidationException_WhenEmailAlreadyExists() {
+    void updateUserShouldThrowValidationException_WhenEmailAlreadyExists() {
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(testUser1));
         when(userRepository.findByEmail(testUser2.getEmail())).thenReturn(Optional.of(testUser2));
         UserUpdateDto updateDto = UserUpdateDto.builder()

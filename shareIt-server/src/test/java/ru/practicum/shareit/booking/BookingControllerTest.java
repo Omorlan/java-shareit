@@ -89,7 +89,7 @@ class BookingControllerTest {
 
     @Test
     @SneakyThrows
-    void addBooking_ShouldReturnBookingResponseDto() {
+    void addBookingShouldReturnBookingResponseDto() {
         when(bookingService.addBooking(bookingCreateDto, user.getId())).thenReturn(responseDto);
 
         String result = mockMvc.perform(post("/bookings")
@@ -106,7 +106,7 @@ class BookingControllerTest {
 
     @Test
     @SneakyThrows
-    void approveBooking_ShouldReturnUpdatedBookingResponseDto() {
+    void approveBookingShouldReturnUpdatedBookingResponseDto() {
         long bookingId = 1L;
         boolean approved = true;
 
@@ -126,7 +126,7 @@ class BookingControllerTest {
 
     @Test
     @SneakyThrows
-    void getBooking_ShouldReturnBookingResponseDto() {
+    void getBookingShouldReturnBookingResponseDto() {
         long bookingId = 1L;
 
         when(bookingService.getBooking(user.getId(), bookingId)).thenReturn(responseDto);
@@ -143,7 +143,7 @@ class BookingControllerTest {
 
     @Test
     @SneakyThrows
-    void getBookings_ShouldReturnListOfBookingShortResponseDto() {
+    void getBookingsShouldReturnListOfBookingShortResponseDto() {
         when(bookingService.getBookings(user.getId(), BOOKING_STATE_ALL))
                 .thenReturn(Collections.singletonList(bookingShortResponseDto));
 
@@ -160,7 +160,7 @@ class BookingControllerTest {
 
     @Test
     @SneakyThrows
-    void getBookingsOwner_ShouldReturnListOfBookingShortResponseDto() {
+    void getBookingsOwnerShouldReturnListOfBookingShortResponseDto() {
         when(bookingService.getBookingsOwner(user.getId(), BOOKING_STATE_ALL)).thenReturn(List.of(bookingShortResponseDto));
 
         String result = mockMvc.perform(get("/bookings/owner")

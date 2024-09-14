@@ -92,7 +92,7 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void addBooking_ShouldReturnBookingResponseDto() {
+    void addBookingShouldReturnBookingResponseDto() {
         when(userRepository.findById(anyLong())).thenAnswer(invocation -> {
             Long id = invocation.getArgument(0);
             if (id.equals(testBooker.getId())) {
@@ -117,7 +117,7 @@ class BookingServiceImplTest {
 
 
     @Test
-    void approveBooking_ShouldReturnApprovedBookingResponseDto() {
+    void approveBookingShouldReturnApprovedBookingResponseDto() {
         Booking bookingToApprove = Booking.builder()
                 .id(2L)
                 .start(LocalDateTime.now())
@@ -139,7 +139,7 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void getBooking_ShouldReturnBookingResponseDto() {
+    void getBookingShouldReturnBookingResponseDto() {
         when(bookingRepository.findById(anyLong())).thenReturn(Optional.of(testBooking));
 
         BookingResponseDto responseDto = bookingService.getBooking(testBooker.getId(), testBooking.getId());
@@ -148,7 +148,7 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void getBookingsByBooker_ShouldReturnListOfBookingShortResponseDto() {
+    void getBookingsByBookerShouldReturnListOfBookingShortResponseDto() {
         when(userRepository.findById(testBooker.getId())).thenReturn(Optional.of(testBooker));
         when(bookerHandlerChain.handle(any(BookingRequest.class))).thenReturn(List.of(testBooking));
 
@@ -162,7 +162,7 @@ class BookingServiceImplTest {
 
 
     @Test
-    void getBookingsByOwner_ShouldReturnListOfBookingShortResponseDto() {
+    void getBookingsByOwnerShouldReturnListOfBookingShortResponseDto() {
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(testOwner));
 
         when(ownerHandlerChain.handle(any(BookingRequest.class))).thenReturn(List.of(testBooking));

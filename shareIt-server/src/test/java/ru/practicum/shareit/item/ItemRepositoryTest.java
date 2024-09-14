@@ -51,27 +51,27 @@ class ItemRepositoryTest {
     }
 
     @Test
-    void findAllByOwnerId_shouldReturnItems() {
+    void findAllByOwnerIdshouldReturnItems() {
         List<Item> items = itemRepository.getItemsByUser(user.getId());
         assertThat(items).hasSize(1);
         assertThat(items).containsExactly(item);
     }
 
     @Test
-    void searchText_shouldReturnItems() {
+    void searchTextshouldReturnItems() {
         List<Item> items = itemRepository.searchText("Item 1");
         assertThat(items).hasSize(1);
         assertThat(items).containsExactly(item);
     }
 
     @Test
-    void searchText_noMatchingItems() {
+    void searchTextnoMatchingItems() {
         List<Item> items = itemRepository.searchText("Nonexistent");
         assertThat(items).isEmpty();
     }
 
     @Test
-    void findAllByOwnerId_noItems() {
+    void findAllByOwnerIdnoItems() {
         User anotherUser = User.builder()
                 .name("Another User")
                 .email("another.user@example.com")
