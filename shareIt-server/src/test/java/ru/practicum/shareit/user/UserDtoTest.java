@@ -22,7 +22,7 @@ class UserDtoTest {
 
     @Test
     @SneakyThrows
-    void UserDtoSerialize() {
+    void userDtoSerialize() {
         UserDto userDto = UserDto.builder()
                 .id(USER_ID)
                 .name(USER_NAME)
@@ -46,7 +46,7 @@ class UserDtoTest {
 
     @Test
     @SneakyThrows
-    void UserDtoSerializeEmptyFields() {
+    void userDtoSerializeEmptyFields() {
         UserDto userDto = UserDto.builder()
                 .id(null)
                 .name("")
@@ -67,7 +67,7 @@ class UserDtoTest {
 
     @Test
     @SneakyThrows
-    void UserDtoDeserialize() {
+    void userDtoDeserialize() {
         String jsonContent = "{\"id\":1,\"name\":\"Oleg Gazmanov\",\"email\":\"vpole.skonem@viydu.ru\"}";
         UserDto userDto = json.parseObject(jsonContent);
 

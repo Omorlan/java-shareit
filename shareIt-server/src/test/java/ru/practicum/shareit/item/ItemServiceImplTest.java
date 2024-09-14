@@ -13,7 +13,6 @@ import ru.practicum.shareit.booking.repository.BookingRepository;
 import ru.practicum.shareit.common.exception.NotAvailableException;
 import ru.practicum.shareit.common.exception.NotFoundException;
 import ru.practicum.shareit.item.comment.dto.CommentAddDto;
-import ru.practicum.shareit.item.comment.repostitory.CommentRepository;
 import ru.practicum.shareit.item.dto.ItemAddDto;
 import ru.practicum.shareit.item.dto.ItemCommentNextLastDto;
 import ru.practicum.shareit.item.dto.ItemDto;
