@@ -18,7 +18,6 @@ import ru.practicum.shareit.booking.dto.BookingState;
 import ru.practicum.shareit.common.Headers;
 
 
-
 @Controller
 @RequestMapping(path = "/bookings")
 @RequiredArgsConstructor
@@ -60,6 +59,7 @@ public class BookingController {
         BookingState stateParam = parseBookingState(state);
         return bookingClient.getBookingsOwner(userId, stateParam);
     }
+
     private BookingState parseBookingState(String state) {
         try {
             return BookingState.valueOf(state.toUpperCase());
