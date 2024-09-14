@@ -97,6 +97,7 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	
 	<profiles>
 		<profile>
 			<id>check</id>
