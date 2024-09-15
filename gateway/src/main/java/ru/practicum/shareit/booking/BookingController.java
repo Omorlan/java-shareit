@@ -3,7 +3,6 @@ package ru.practicum.shareit.booking;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -13,12 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.dto.BookingState;
 import ru.practicum.shareit.common.Headers;
 
 
-@Controller
+@RestController
 @RequestMapping(path = "/bookings")
 @RequiredArgsConstructor
 @Validated
@@ -48,7 +48,7 @@ public class BookingController {
     public ResponseEntity<Object> getBookings(@RequestHeader(Headers.USER_HEADER) Long userId,
                                               @RequestParam(required = false, defaultValue = "ALL")
                                               String state) {
-        BookingState stateParam = parseBookingState(state);
+        BookingState stateParam = BookingState.parse(state);
         return bookingClient.getBookings(userId, stateParam);
     }
 
@@ -56,15 +56,8 @@ public class BookingController {
     public ResponseEntity<Object> getBookingsOwner(@RequestHeader(Headers.USER_HEADER) Long userId,
                                                    @RequestParam(required = false, defaultValue = "ALL")
                                                    String state) {
-        BookingState stateParam = parseBookingState(state);
+        BookingState stateParam = BookingState.parse(state);
         return bookingClient.getBookingsOwner(userId, stateParam);
     }
 
-    private BookingState parseBookingState(String state) {
-        try {
-            return BookingState.valueOf(state.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Unknown state: " + state);
-        }
-    }
 }
